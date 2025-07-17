@@ -11,6 +11,7 @@ import plusBtn from "../assets/tag/plusBtn.svg";
 //모달
 import ScheduleModal from "../components/ScheduleModal";
 import { tagModalAtom } from "../atoms/TagAtoms";
+import { tagListAtom } from "../atoms/HomeAtoms";
 
 const Tag = () => {
   // 일정 데이터 불러오기(api)
@@ -20,6 +21,7 @@ const Tag = () => {
   const [allTags, setAllTags] = useAtom(tagIdListAtom);
 
   const [, setTagModalOpen] = useAtom(tagModalAtom);
+  const [, setTagList] = useAtom(tagListAtom);
 
   //페이지가 처음 로드 될 때 태그 목록을 가져온다.
   useEffect(() => {
@@ -27,6 +29,13 @@ const Tag = () => {
       try {
         const tags = await getTagList(); // 실제 API 호출
         setAllTags(tags); // 응답 결과 저장
+        const newTags = tags
+          .map((tag) => tag.name)
+          .map((name) => ({
+            value: name,
+            label: name,
+          }));
+        setTagList(newTags);
       } catch (error) {
         console.error("태그 불러오기 실패:", error);
       }

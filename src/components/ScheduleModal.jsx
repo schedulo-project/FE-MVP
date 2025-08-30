@@ -20,6 +20,7 @@ import {
   isModalOpenAtom,
   modalDataAtom,
   tagListAtom,
+  eventsAtoms,
 } from "../atoms/HomeAtoms";
 // % 모달 사용 요령 %
 // 1. 모달을 열고 닫는 함수는 useAtom으로 관리 : isModalOpenAtom
@@ -41,6 +42,8 @@ const ScheduleModal = () => {
   const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
   const [modalData] = useAtom(modalDataAtom); // 모달에 보여줄 데이터
   //모달이 열렸는지 판단하는 boolean 값
+
+  const [events, setEvents] = useAtom(eventsAtoms);
 
   const data = modalData;
   //data는 모달에 보여줄 데이터
@@ -209,6 +212,7 @@ const ScheduleModal = () => {
       deadline,
     };
     await addSchedules(newData);
+    setEvents((prev) => [...prev, newData]);
     setIsModalOpen(false);
   };
 

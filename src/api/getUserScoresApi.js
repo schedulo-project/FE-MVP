@@ -10,9 +10,6 @@ const getScores = async () => {
       `https://schedulo.store/users/scores/`,
 
       {
-        params: {
-          mock: true,
-        },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

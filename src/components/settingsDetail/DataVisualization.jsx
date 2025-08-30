@@ -20,11 +20,22 @@ const DataVisualization = () => {
   //pt-5는 건드리면 안됨
 
   let data = [];
-  if (Data) {
+  if (Data && Data.data) {
+    let datas = Data.data;
+    // 데이터가 하나일 때 그래프가 안 그려지는 오류를 막기 위해 _ 로 더미 데이터 추가
+    if (datas.length === 1) {
+      datas = [
+        datas[0],
+        {
+          x: `${datas[0].x}_`,
+          y: datas[0].y,
+        },
+      ];
+    }
     data = [
       {
         id: "score",
-        data: Data.data ?? [],
+        data: datas ?? [],
       },
     ];
   }
